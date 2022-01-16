@@ -19,10 +19,10 @@ type StateShape struct {
 	Entities  []Entity
 	Globals   map[string]interface{}
 	Score     int
+	GameOver  bool
 }
 
 var State *StateShape
-var started bool
 
 func init() {
 	State = &StateShape{
@@ -34,18 +34,6 @@ func init() {
 }
 
 func (g *StateShape) Update() error {
-	if !started {
-		for _, entity := range State.Entities {
-			err := entity.Start(State)
-			if err != nil {
-				return err
-			}
-		}
-
-		fmt.Println("initialized!")
-		started = true
-	}
-
 	for _, entity := range g.Entities {
 		err := entity.Update(g)
 		if err != nil {
@@ -71,8 +59,12 @@ func (g *StateShape) Draw(screen *ebiten.Image) {
 		}
 	}
 
-	g.Score = int(time.Now().Sub(g.StartTime).Seconds() * 10)
-	ebitenutil.DebugPrint(screen, fmt.Sprintf("Score: %d", g.Score))
+	if !g.GameOver {
+		g.Score = int(time.Now().Sub(g.StartTime).Seconds())
+		ebitenutil.DebugPrint(screen, fmt.Sprintf("Score: %ds", g.Score))
+	} else {
+		ebitenutil.DebugPrint(screen, fmt.Sprintf("GAME OVER! Score: %ds", g.Score))
+	}
 }
 
 func (g *StateShape) Layout(_, _ int) (int, int) {
@@ -111,15 +103,20 @@ func (g *StateShape) AddEntity(entityName string, entity Entity) error {
 	g.Globals[entityName] = entity
 	g.Entities = append(g.Entities, entity)
 
+	err := entity.Start(g)
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 
-func (g *StateShape) DestroyEntity(entityName string, entity Entity) error {
+func (g *StateShape) DestroyEntity(entityName string) error {
 	if !g.EntityExists(entityName) {
 		return fmt.Errorf("entity with specified name doesn't exist")
 	}
 
-	delete(g.Globals, entityName)
+	entity := g.Globals[entityName]
 
 	for i := range g.Entities {
 		if g.Entities[i] == entity {
@@ -127,7 +124,7 @@ func (g *StateShape) DestroyEntity(entityName string, entity Entity) error {
 		}
 	}
 
-	g.Entities = append(g.Entities, entity)
+	delete(g.Globals, entityName)
 
 	return nil
 }
