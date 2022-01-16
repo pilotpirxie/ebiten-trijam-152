@@ -12,12 +12,11 @@ type Background struct {
 	image *ebiten.Image
 }
 
-func NewBackground(x float64, y float64, speed float64) game.Entity {
+func NewBackground() game.Entity {
 	return &Background{}
 }
 
 func (b *Background) Start(_ *game.StateShape) error {
-	var err error
 	pwd, err := os.Getwd()
 	if err != nil {
 		return err
@@ -31,7 +30,7 @@ func (b *Background) Start(_ *game.StateShape) error {
 	return nil
 }
 
-func (b *Background) Update(g *game.StateShape) error {
+func (b *Background) Update(_ *game.StateShape) error {
 	return nil
 }
 

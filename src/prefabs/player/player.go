@@ -32,7 +32,6 @@ func (p *Player) Start(_ *game.StateShape) error {
 	p.X = game.ScreenWidth / 2
 	p.Y = game.ScreenHeight / 2
 
-	var err error
 	pwd, err := os.Getwd()
 	if err != nil {
 		return err

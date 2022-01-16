@@ -13,7 +13,12 @@ func main() {
 	ebiten.SetWindowTitle("Ebiten Demo")
 	ebiten.SetWindowResizable(true)
 
-	err := game.State.AddEntity("background", &data.Background)
+	err := game.State.AddEntity("audio", &data.Audio)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	err = game.State.AddEntity("background", &data.Background)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -24,6 +29,11 @@ func main() {
 	}
 
 	err = game.State.AddEntity("enemy", &data.Enemy)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	err = game.State.AddEntity("controller", &data.Controller)
 	if err != nil {
 		log.Fatal(err)
 	}

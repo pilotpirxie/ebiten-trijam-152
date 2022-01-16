@@ -3,8 +3,6 @@ package game
 import (
 	"fmt"
 	"github.com/hajimehoshi/ebiten/v2"
-	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
-	"image/color"
 	"reflect"
 	"time"
 )
@@ -45,25 +43,11 @@ func (g *StateShape) Update() error {
 }
 
 func (g *StateShape) Draw(screen *ebiten.Image) {
-	screen.Fill(color.NRGBA{
-		R: 25,
-		G: 25,
-		B: 25,
-		A: 255,
-	})
-
 	for _, entity := range g.Entities {
 		err := entity.Draw(g, screen)
 		if err != nil {
 			panic(err)
 		}
-	}
-
-	if !g.GameOver {
-		g.Score = int(time.Now().Sub(g.StartTime).Seconds())
-		ebitenutil.DebugPrint(screen, fmt.Sprintf("Score: %ds", g.Score))
-	} else {
-		ebitenutil.DebugPrint(screen, fmt.Sprintf("GAME OVER! Score: %ds", g.Score))
 	}
 }
 

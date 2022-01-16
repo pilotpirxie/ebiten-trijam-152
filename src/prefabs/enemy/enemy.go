@@ -4,6 +4,7 @@ import (
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 	"github.com/pilotpirxie/ebiten-test/src/game"
+	"github.com/pilotpirxie/ebiten-test/src/prefabs/audio"
 	"github.com/pilotpirxie/ebiten-test/src/prefabs/player"
 	"math"
 	"os"
@@ -29,7 +30,6 @@ func NewEnemy(x float64, y float64, speed float64) game.Entity {
 func (e *Enemy) Start(_ *game.StateShape) error {
 	e.speed = 2
 
-	var err error
 	pwd, err := os.Getwd()
 	if err != nil {
 		return err
@@ -67,7 +67,20 @@ func (e *Enemy) Update(g *game.StateShape) error {
 			e.Y -= e.speed
 		}
 	} else {
-		g.GameOver = true
+		if !g.GameOver {
+			err, entity := g.GetEntity("audio", &audio.Audio{})
+			if err != nil {
+				return nil
+			}
+
+			audioEntity := entity.(*audio.Audio)
+			err = audioEntity.PlayHurt()
+			if err != nil {
+				return err
+			}
+
+			g.GameOver = true
+		}
 	}
 	return nil
 }
