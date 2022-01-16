@@ -1,24 +1,27 @@
 package enemy
 
 import (
+	"fmt"
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 	"github.com/pilotpirxie/ebiten-test/src/game"
+	player2 "github.com/pilotpirxie/ebiten-test/src/prefabs/player"
+	"math"
 	"os"
 	"path"
 )
 
 type Enemy struct {
 	enemyImage *ebiten.Image
-	x          float64
-	y          float64
+	X          float64
+	Y          float64
 	speed      float64
 }
 
 func NewEnemy(x float64, y float64, speed float64) game.Entity {
 	return &Enemy{
-		x:     x,
-		y:     y,
+		X:     x,
+		Y:     y,
 		speed: speed,
 	}
 }
@@ -38,7 +41,18 @@ func (e *Enemy) Start(_ *game.StateShape) error {
 	return nil
 }
 
-func (e *Enemy) Update(_ *game.StateShape) error {
+func (e *Enemy) Update(g *game.StateShape) error {
+	err, entity := g.GetEntity("player", &player2.Player{})
+	if err != nil {
+		return nil
+	}
+
+	player := entity.(*player2.Player)
+
+	distance := math.Sqrt(math.Pow(player.X-e.X, 2) + math.Pow(player.Y-e.Y, 2))
+	if distance > 10 {
+		fmt.Println("elo")
+	}
 	return nil
 }
 
@@ -48,7 +62,7 @@ func (e *Enemy) Draw(_ *game.StateShape, image *ebiten.Image) error {
 	}
 
 	op := &ebiten.DrawImageOptions{}
-	op.GeoM.Translate(e.x, e.y)
+	op.GeoM.Translate(e.X, e.Y)
 	image.DrawImage(e.enemyImage, op)
 
 	return nil

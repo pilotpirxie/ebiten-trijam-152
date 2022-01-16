@@ -13,15 +13,15 @@ const runSpeed = 8
 
 type Player struct {
 	heroImage *ebiten.Image
-	x         float64
-	y         float64
+	X         float64
+	Y         float64
 	speed     float64
 }
 
 func NewPlayer(x float64, y float64, speed float64) game.Entity {
 	return &Player{
-		x:     x,
-		y:     y,
+		X:     x,
+		Y:     y,
 		speed: speed,
 	}
 }
@@ -43,19 +43,19 @@ func (p *Player) Start(_ *game.StateShape) error {
 
 func (p *Player) Update(_ *game.StateShape) error {
 	if ebiten.IsKeyPressed(ebiten.KeyArrowLeft) {
-		p.x = p.x - p.speed
+		p.X = p.X - p.speed
 	}
 
 	if ebiten.IsKeyPressed(ebiten.KeyArrowRight) {
-		p.x = p.x + p.speed
+		p.X = p.X + p.speed
 	}
 
 	if ebiten.IsKeyPressed(ebiten.KeyArrowUp) {
-		p.y = p.y - p.speed
+		p.Y = p.Y - p.speed
 	}
 
 	if ebiten.IsKeyPressed(ebiten.KeyArrowDown) {
-		p.y = p.y + p.speed
+		p.Y = p.Y + p.speed
 	}
 
 	if ebiten.IsKeyPressed(ebiten.KeyShiftLeft) {
@@ -73,7 +73,7 @@ func (p *Player) Draw(_ *game.StateShape, image *ebiten.Image) error {
 	}
 
 	op := &ebiten.DrawImageOptions{}
-	op.GeoM.Translate(p.x, p.y)
+	op.GeoM.Translate(p.X, p.Y)
 	image.DrawImage(p.heroImage, op)
 
 	return nil

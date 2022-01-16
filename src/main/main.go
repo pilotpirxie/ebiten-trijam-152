@@ -2,9 +2,8 @@ package main
 
 import (
 	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/pilotpirxie/ebiten-test/src/data"
 	"github.com/pilotpirxie/ebiten-test/src/game"
-	"github.com/pilotpirxie/ebiten-test/src/prefabs/enemy"
-	"github.com/pilotpirxie/ebiten-test/src/prefabs/player"
 	_ "image/png"
 	"log"
 )
@@ -14,11 +13,17 @@ func main() {
 	ebiten.SetWindowTitle("Ebiten Demo")
 	ebiten.SetWindowResizable(true)
 
-	game.State.Entities = append(
-		game.State.Entities,
-		&player.Player{},
-		&enemy.Enemy{},
-	)
+	//game.State.Entities = append(
+	//	game.State.Entities,
+	//	&data.Enemy,
+	//	&data.Player,
+	//)
+	//
+	//game.State.Globals["player"] = &data.Player
+	//game.State.Globals["enemy"] = &data.Player
+
+	game.State.AddEntity("player", &data.Player)
+	game.State.AddEntity("enemy", &data.Enemy)
 
 	if err := ebiten.RunGame(game.State); err != nil {
 		log.Fatal(err)
