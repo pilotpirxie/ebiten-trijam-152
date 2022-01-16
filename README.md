@@ -1,4 +1,4 @@
-# ebiten-leave-me-alone
+# ebiten-leave-me-alone-trijam
 
 Game created for Trijam #152 while testing the Ebiten game development engine in Go.
 
@@ -7,8 +7,14 @@ caught.
 
 Controls: Arrows to move, hold left shift to run
 
-![./img/s1.png](s1)
+![s1](./img/s3.png)
 
-![./img/s2.png](s2)
+![s1](./img/s2.png)
 
-![./img/s3.png](s3)
+![s1](./img/s1.png)
+
+### License
+
+```
+MIT
+```
