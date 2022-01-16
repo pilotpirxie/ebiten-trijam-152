@@ -10,7 +10,7 @@ import (
 
 func main() {
 	ebiten.SetWindowSize(game.ScreenWidth, game.ScreenHeight)
-	ebiten.SetWindowTitle("Ebiten Demo")
+	ebiten.SetWindowTitle("Leave me alone! - Trijam #152")
 	ebiten.SetWindowResizable(true)
 
 	err := game.State.AddEntity("audio", &data.Audio)
