@@ -3,7 +3,7 @@ package player
 import (
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
-	"github.com/pilotpirxie/ebiten-test/src/game"
+	"github.com/pilotpirxie/ebiten-trijam-152/src/game"
 	"os"
 	"path"
 )

@@ -2,8 +2,8 @@ package main
 
 import (
 	"github.com/hajimehoshi/ebiten/v2"
-	"github.com/pilotpirxie/ebiten-test/src/data"
-	"github.com/pilotpirxie/ebiten-test/src/game"
+	"github.com/pilotpirxie/ebiten-trijam-152/src/data"
+	"github.com/pilotpirxie/ebiten-trijam-152/src/game"
 	_ "image/png"
 	"log"
 )

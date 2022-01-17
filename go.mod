@@ -1,4 +1,4 @@
-module github.com/pilotpirxie/ebiten-test
+module github.com/pilotpirxie/ebiten-trijam-152
 
 go 1.17
 
